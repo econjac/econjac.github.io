@@ -66,8 +66,24 @@
   .jmc-meta { color: var(--muted); font-size: 0.95em; margin-top: 0.1em; padding-left: 1.5em; }
   hr { border: none; border-top: 1px solid var(--rule); margin: 2em 0; }
   @media (max-width: 600px) {
-    img.profile { width: 130px; margin-left: 1em; }
-    body { margin-top: 1.5em; }
+    html { font-size: 16px; }
+    body { margin: 1.5em auto 3em; padding: 0 1.1em; }
+    h1 { font-size: 1.5em; }
+    h2 { font-size: 1.05em; margin: 1.8em 0 0.5em; }
+    img.profile {
+      float: none;
+      display: block;
+      width: 140px;
+      margin: 0.5em auto 1.2em;
+    }
+    .bio-text, details > p {
+      text-align: left;
+      -webkit-hyphens: none;
+      hyphens: none;
+    }
+    .jmc-meta { padding-left: 1em; font-size: 0.92em; }
+    .toplinks { line-height: 1.8; }
+    summary { font-size: 0.94em; }
   }
 </style>
 </head>
@@ -80,10 +96,11 @@
      If you have public code, add GitHub back: [ <a href="https://github.com/econjac">GitHub</a> ] -->
 <p class="toplinks">[ <a href="https://www.dropbox.com/s/o3h5t9df8654bny/CV-JAC.pdf?dl=0">CV</a> ] [ <a href="#">Google Scholar</a> ] [ <a href="#">SSRN</a> ] [ <a href="mailto:econjac@gmail.com">Email</a> ]</p>
 
-<img class="profile" src="photo.jpg" alt="Juan-Andrés Castro">
+<img class="profile" src="files/photo.jpg" alt="Juan-Andrés Castro">
 
-<!-- C1: Interests sharpened. Pulled from your own bio (state capacity, technology adoption, firm dynamics) rather than the three broad textbook labels. -->
-<p><strong>Interests:</strong> Development Economics, State Capacity, Technology Adoption, Firm Dynamics</p>
+<!-- Interests split into Primary (broad fields) and Secondary (specific topics) per author. -->
+<p><strong>Primary interests:</strong> Development Economics, Organizational Economics, Public Economics</p>
+<p><strong>Secondary interests:</strong> Internet Infrastructure, Technology Adoption, Firm Dynamics</p>
 
 <p><strong>Affiliation:</strong> Economics PhD candidate @ <a href="https://www.qmul.ac.uk/sef/">Queen Mary University of London</a></p>
 
@@ -163,8 +180,8 @@
 
 <h2>Policy Reports</h2>
 
-<p>2019: <em>Predictive models of default and recovery of corporate loans</em>, Central Bank of Chile, with E. Cerletti, J. Fernández, &amp; A. Vásquez.</p>
-<p>2019: "Economic groups as a unit of analysis for financial stability" — Box IV.2, Financial Stability Report S2-2019, Central Bank of Chile, with Patricio Toro.</p>
+<p>2019: <em><a href="https://www.bcentral.cl/documents/33528/133278/IEF2_2019-Minutas-citadas-IEF-segundo-semestre-2019.pdf">Predictive models of default and recovery of corporate loans</a></em>, Central Bank of Chile, with E. Cerletti, J. Fernández, &amp; A. Vásquez.</p>
+<p>2019: "<a href="https://www.bcentral.cl/documents/33528/133278/IEF2_2019.pdf">Economic groups as a unit of analysis for financial stability</a>" — Box IV.2, Financial Stability Report S2-2019, Central Bank of Chile, with Patricio Toro.</p>
 
 <!-- =====================================================================
      SECTIONS TO POPULATE BEFORE GOING ON MARKET (top-10 push):
