@@ -138,10 +138,9 @@
   a:visited { color: var(--link); }
   a:hover { text-decoration: underline; }
   .paper-block {
-    display: grid;
-    grid-template-columns: 95px 1fr;
+    display: flex;
     gap: 1em;
-    align-items: start;
+    align-items: flex-start;
     background: transparent;
     padding: 0.4em 0.8em;
     border-radius: 6px;
@@ -153,21 +152,20 @@
     padding: 1em 1em 0.6em;
   }
   .paper-block > img.paper-thumb {
-    width: 100%;
+    width: 95px;
     aspect-ratio: 1;
     object-fit: cover;
     border-radius: 3px;
-    grid-row: 1 / -1;
-    align-self: start;
+    flex-shrink: 0;
   }
-  .paper-block > *:not(img) { grid-column: 2; }
-  .paper-block.no-thumb {
-    grid-template-columns: 1fr;
+  .paper-block .paper-text {
+    flex: 1;
+    min-width: 0;
   }
-  .paper-block.no-thumb > *:not(img) { grid-column: auto; }
-  .paper-block > *:last-child { margin-bottom: 0; }
-  .paper-block > p { margin: 0.1em 0 0.15em; }
-  .paper-block > details { margin-top: 0.1em; }
+  .paper-block.no-thumb { display: block; }
+  .paper-block .paper-text > p:first-child { margin-top: 0; margin-bottom: 0.2em; }
+  .paper-block .paper-text > details { margin-top: 0.1em; }
+  .paper-block .paper-text > *:last-child { margin-bottom: 0; }
   details { margin: 0.3em 0 0.4em; }
   summary {
     cursor: pointer;
@@ -232,11 +230,8 @@
       -webkit-hyphens: none;
       hyphens: none;
     }
-    .paper-block {
-      grid-template-columns: 75px 1fr;
-      gap: 0.8em;
-      padding: 0.3em 0.5em;
-    }
+    .paper-block { gap: 0.8em; padding: 0.3em 0.5em; }
+    .paper-block > img.paper-thumb { width: 75px; }
     .paper-block:has(details[open]) { padding: 0.8em 0.9em 0.5em; }
     .section-nav {
       position: static;
@@ -256,7 +251,7 @@
 <aside class="sidebar">
 <h1>Juan-Andrés Castro</h1>
 
-<p class="toplinks">[ <a href="https://www.dropbox.com/s/o3h5t9df8654bny/CV-JAC.pdf?dl=0">CV</a> ] [ <a href="#">Google Scholar</a> ]</p>
+<p class="toplinks">[ <a href="https://www.dropbox.com/s/o3h5t9df8654bny/CV-JAC.pdf?dl=0">CV</a> ]</p>
 
 <img class="profile" src="photo.jpg" alt="Juan-Andrés Castro">
 
@@ -296,6 +291,7 @@
 
 <div class="paper-block">
 <img class="paper-thumb" src="figure_jmp.jpg" alt="Job market paper: communication technology and state provision" onerror="this.style.display='none'">
+<div class="paper-text">
 <p><span class="paper-title">The Missing Input: Communication in Public Service Delivery</span></p>
 <!-- TODO when JMP PDF is ready: uncomment the line below and replace [Month YYYY] with actual date.
 <p class="paper-meta">Latest draft: [Month YYYY] — upload PDF to <code>jmp.pdf</code> and slides to <code>jmp_slides.pdf</code></p>
@@ -306,6 +302,7 @@
   <p>A central challenge in public service delivery is not how much the state has, but how well it allocates resources and organizes delivery. This paper studies a reform that reduces communication frictions within the state, and shows it increases service delivery by filling existing capacity — without adding inputs. I exploit the staggered, legally mandated rollout of a digital platform that replaced Chile's paper-based system of official communications to identify causal effects on internal communication and service delivery. In the National Board of Kindergartens, adoption cuts communication processing times by 55–88%, depending on the receiver. Total volume is unchanged, but flows reallocate: provision-oriented communication from operational units rises by 34% year-round and by 76% during the enrollment window, while compliance-oriented flows from finance fall by 37%. The binding constraint was administrative time, not per document cost; relaxing it reallocates attention toward operational coordination. Public childcare enrollment rises by 4% relative to baseline enrollment, absorbing latent demand rather than reallocating enrollments across providers, and concentrated in centers that previously had slack capacity and faced higher coordination frictions. The results show that administrative communication is an organizational input that raises state productivity by reducing underutilization — a channel distinct from personnel, incentives, and monitoring.</p>
 </details>
 </div>
+</div>
 
 <h2 id="work-in-progress"><span class="num">03</span>Work in Progress</h2>
 
@@ -313,6 +310,7 @@
 
 <div class="paper-block">
 <img class="paper-thumb" src="figure_data_centers.jpg" alt="Data centers and internet latency across Africa" onerror="this.style.display='none'">
+<div class="paper-text">
 <p><span class="paper-title">Data Centers</span> <span class="paper-authors">with <a href="https://www.jonashjort.com/">Jonas Hjort</a> and Ana Cepeda</span></p>
 <details>
   <summary>[ Abstract ]</summary>
@@ -322,18 +320,22 @@
 
 <div class="paper-block">
 <img class="paper-thumb" src="figure_shutdowns.jpg" alt="Internet shutdowns and heterogeneous economic impact of connectivity across Africa" onerror="this.style.display='none'">
+<div class="paper-text">
 <p><span class="paper-title">Internet Shutdowns and the Heterogeneous Economic Impact of Connectivity</span> <span class="paper-authors">with <a href="https://www.jonashjort.com/">Jonas Hjort</a> and Emilio Guaman</span></p>
 <details>
   <summary>[ Abstract ]</summary>
   <p>We study how Internet Service Providers (ISPs) and political regimes shape the economic impact of connectivity in Africa, combining heterogeneous causal-forest estimates of connectivity's employment effect (extending Hjort &amp; Poulsen 2019) with an AKM-style two-way fixed-effects decomposition of mobile coverage quality. The AKM design exploits ~9,400 events of operators entering new grid cells across 95 African ISPs between 2010 and 2023 (50 × 50 km grids, Collin-Bartholomew 2G coverage). Preliminary findings document large heterogeneity across providers — some yielding null or negative employment effects, others raising employment probabilities by up to 29 percentage points — and a robust sorting pattern: higher-quality ISPs concentrate in more democratic regimes, while state ownership and Internet-shutdown capacity track lower-achiever providers and dampen the connectivity-to-employment transmission.</p>
 </details>
 </div>
+</div>
+</div>
 
 <h2 id="working-papers"><span class="num">04</span>Working Papers</h2>
 
 <div class="paper-block">
 <img class="paper-thumb" src="dist-top20.png" alt="Market power, ownership concentration, and income inequality in Chile" onerror="this.style.display='none'">
-<p><span class="paper-title">Market power, ownership concentration and income inequality</span> <span class="paper-authors">with Alejandro Micco, Andrea Repetto, and Patricio Toro</span> <span class="paper-meta">2026</span></p>
+<div class="paper-text">
+<p><span class="paper-title">Market power, ownership concentration and income inequality</span> <span class="paper-authors">with Alejandro Micco, Andrea Repetto, and Patricio Toro</span> <span class="paper-meta">(2026)</span></p>
 <details>
   <summary>[ Abstract | <a href="market_power.pdf">Paper</a> ]</summary>
   <p>We quantify the distributional effects of market power by decomposing capital income into competitive returns and market-power rents and assigning these components to ultimate individual owners. Using matched firm-level and taxpayer-level administrative data for Chile from 2008 to 2016, we estimate firm-level markups and trace monopoly rents through ownership networks. Capital income is highly concentrated, but competitive returns are more skewed than market-power rents because very large firms exhibit lower markups. As a result, market-power rents account for a smaller share of income at the very top of the distribution. Inequality decompositions imply that reductions in market power lower inequality despite increases in competitive returns, as the associated rise in the labor share dominates. Our results provide new empirical evidence on how ownership structure mediates the link between market power and inequality.</p>
@@ -342,17 +344,20 @@
 
 <div class="paper-block">
 <img class="paper-thumb" src="subway.png" alt="Financial constraints and firm response to sales disruption in Chile" onerror="this.style.display='none'">
-<p><span class="paper-title">Financial Constraints and Firm Adjustments During a Sales Disruption</span> <span class="paper-authors">with Enzo Cerletti</span> <span class="paper-meta">2023</span></p>
+<div class="paper-text">
+<p><span class="paper-title">Financial Constraints and Firm Adjustments During a Sales Disruption</span> <span class="paper-authors">with Enzo Cerletti</span> <span class="paper-meta">(2023)</span></p>
 <details>
   <summary>[ Abstract | <a href="https://www.bcentral.cl/documents/33528/133326/DTBC_995.pdf">Paper</a> ]</summary>
   <p>We address two main questions: (i) how do firms respond to an unanticipated shock to their cash flows, and (ii) what is the role of financial constraints in mediating such response? To answer these questions, we study the behavior of Chilean firms during the 2019 social unrest, which caused a series of disruptions to the firms' activity over several months. Exploiting quasi-experimental variation in the exposure of firms to these incidents, we find that more exposed firms experience larger declines in sales, larger employment losses, and are more likely to fall behind in their financial obligations than less affected firms. Moreover, these responses are significantly stronger for those firms more likely to be financially constrained. A back-of-the-envelope calculation suggests that constrained firms translate almost half the decline in sales into lower demand for labor and intermediate inputs, more than double the transmission of unconstrained firms.</p>
 </details>
 </div>
+</div>
+</div>
 
 <p class="subsection">Pre-PhD</p>
 
 <div class="paper-block no-thumb">
-<p><span class="paper-title">Telling schools apart: the role of preferences, constraints, and the ability to differentiate between schools in parents' choices</span> <span class="paper-authors">with Diego Amador and Nicolás Grau</span> <span class="paper-meta">2020</span></p>
+<p><span class="paper-title">Telling schools apart: the role of preferences, constraints, and the ability to differentiate between schools in parents' choices</span> <span class="paper-authors">with Diego Amador and Nicolás Grau</span> <span class="paper-meta">(2020)</span></p>
 <details>
   <summary>[ Abstract | <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3422914">Paper</a> ]</summary>
   <p>Limitations in the ability of parents to compare schools have important implications for market-oriented educational systems, which rely on parents' choices to improve quality through competition. To empirically study these limitations, we develop and estimate a static model of elementary school choice that distinguishes between preferences for academic quality, the ability to differentiate between schools of different quality, and constraints in terms of the schools available to different households. Because school quality might be endogenous to parents' choices, we identify the key parameters related to preferences for quality using exogenous variation in schools' funding introduced by a policy that substantially increased the voucher amount for each enrolled socioeconomically vulnerable student. We estimate the model using a combination of administrative and survey data from Chile, which includes rich information on how parents compare the academic quality of schools. Using counterfactual simulations, we find the interaction between limitations to tell schools apart and differences in preferences across households plays an important role in decreasing the quality of schools attended by Chilean children, especially for children with less educated parents.</p>
