@@ -73,64 +73,100 @@
   html { font-size: 17px; background: var(--bg); }
   body {
     font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
-    max-width: 720px;
-    margin: 2.5em auto 4em;
-    padding: 0 1.4em;
     color: var(--text);
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     background: var(--bg);
+    margin: 0;
+    padding: 0;
   }
-  h1 {
-    font-size: 1.7em;
+  .layout {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 3.5em;
+    max-width: 960px;
+    margin: 2.5em auto 4em;
+    padding: 0 1.6em;
+  }
+  .sidebar {
+    position: sticky;
+    top: 2em;
+    align-self: start;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  .sidebar h1 {
+    font-size: 1.35em;
     font-weight: 600;
-    margin: 0 0 0.15em;
+    margin: 0 0 0.7em;
     letter-spacing: -0.01em;
+    line-height: 1.25;
   }
-  h2 {
-    font-size: 1.1em;
+  .sidebar img.profile {
+    display: block;
+    width: 100%;
+    max-width: 210px;
+    margin: 0 0 1.1em;
+    border-radius: 3px;
+    float: none;
+  }
+  .sidebar-item { margin: 0.7em 0; font-size: 0.94em; line-height: 1.5; }
+  .sidebar-item strong { color: var(--text); font-weight: 600; }
+  .sidebar .toplinks {
+    margin: 0 0 1.1em;
+    font-size: 0.9em;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+  .content h2 {
+    font-size: 1.15em;
     font-weight: 600;
-    margin: 2.2em 0 0.6em;
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 0.25em;
+    margin: 2em 0 0.6em;
+    scroll-margin-top: 1em;
+    color: var(--link);
   }
+  .content h2 .num { color: var(--muted); font-weight: 400; margin-right: 0.5em; font-variant-numeric: tabular-nums; }
+  .content > *:first-child { margin-top: 0; }
+  p { margin: 0.55em 0; }
   details > p, .bio-text {
     text-align: justify;
     -webkit-hyphens: auto;
     hyphens: auto;
   }
-  p { margin: 0.55em 0; }
-  a { color: var(--link); text-decoration: none; }
+  a { color: var(--link); text-decoration: none; -webkit-tap-highlight-color: rgba(166, 55, 68, 0.15); }
   a:visited { color: var(--link); }
   a:hover { text-decoration: underline; }
-  a { -webkit-tap-highlight-color: rgba(166, 55, 68, 0.15); }
-  .toplinks { color: var(--muted); margin-top: 0.2em; margin-bottom: 1.2em; font-size: 0.95em; }
-  img.profile {
-    float: left;
-    width: 180px;
-    margin: 0 1.5em 1em 0;
-    border-radius: 2px;
-  }
-  img.paper-hero {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 0 0 0.5em;
-    border-radius: 4px;
-  }
   .paper-block {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.2em;
+    align-items: start;
     background: transparent;
-    padding: 0.4em 1.5em 0.3em;
+    padding: 0.5em 0.8em;
     border-radius: 6px;
-    margin: 0.8em 0;
+    margin: 0.6em 0;
     transition: background 0.15s ease;
   }
   .paper-block:has(details[open]) {
     background: #f5f0e2;
-    padding: 1.3em 1.5em 0.7em;
+    padding: 1em 1em 0.6em;
   }
+  .paper-block > img.paper-thumb {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 3px;
+    grid-row: 1 / span 3;
+    align-self: start;
+  }
+  .paper-block > *:not(img) { grid-column: 2; }
+  .paper-block.no-thumb {
+    grid-template-columns: 1fr;
+  }
+  .paper-block.no-thumb > *:not(img) { grid-column: auto; }
   .paper-block > *:last-child { margin-bottom: 0; }
-  details { margin: 0.3em 0 0.9em; }
+  details { margin: 0.3em 0 0.4em; }
   summary {
     cursor: pointer;
     color: var(--link);
@@ -142,81 +178,94 @@
   details > p { color: #333; font-size: 0.96em; padding-left: 0; }
   .paper-title { font-weight: 600; }
   .paper-meta { color: var(--muted); font-style: italic; }
+  .paper-authors { color: var(--muted); font-style: italic; }
+  .paper-authors a { color: var(--muted); }
+  .paper-authors a:visited { color: var(--muted); }
+  .paper-authors a:hover { color: var(--link); }
   .subsection { color: var(--muted); font-size: 0.95em; font-style: italic; margin-top: 1.2em; margin-bottom: 0.4em; }
-  .jmc-meta { color: var(--muted); font-size: 0.95em; margin-top: 0.1em; padding-left: 1.5em; }
   hr { border: none; border-top: 1px solid var(--rule); margin: 2em 0; }
   .section-nav {
-    margin: 1.8em 0 2.2em;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    display: flex;
+    gap: 0.9em;
+    margin: 0 0 2em;
     padding: 0.7em 0;
     border-top: 1px solid var(--rule);
     border-bottom: 1px solid var(--rule);
-    font-size: 0.88em;
-    line-height: 1.9;
+    font-size: 0.82em;
+    line-height: 1.6;
   }
   .section-nav a {
     color: var(--text);
     text-decoration: none;
-    margin-right: 1.4em;
     white-space: nowrap;
   }
   .section-nav a:hover { color: var(--link); text-decoration: underline; }
   .section-nav .num { color: var(--muted); margin-right: 0.35em; font-variant-numeric: tabular-nums; }
-  @media (max-width: 600px) {
-    html { font-size: 16px; }
-    body { margin: 1.5em auto 3em; padding: 0 1.1em; }
-    h1 { font-size: 1.5em; }
-    h2 { font-size: 1.05em; margin: 1.8em 0 0.5em; }
-    img.profile {
-      float: none;
-      display: block;
-      width: 140px;
-      margin: 0.5em auto 1.2em;
+  @media (max-width: 780px) {
+    .layout {
+      grid-template-columns: 1fr;
+      gap: 1.5em;
+      padding: 0 1.1em;
+      margin: 1.5em auto 3em;
     }
+    html { font-size: 16px; }
+    .sidebar {
+      position: static;
+      max-height: none;
+      overflow-y: visible;
+    }
+    .sidebar h1 { font-size: 1.55em; text-align: center; margin-top: 0.5em; }
+    .sidebar img.profile {
+      max-width: 160px;
+      margin: 0 auto 1em;
+    }
+    .sidebar-item, .sidebar .toplinks { text-align: center; }
+    .content h2 { font-size: 1.08em; }
     .bio-text, details > p {
       text-align: left;
       -webkit-hyphens: none;
       hyphens: none;
     }
-    .jmc-meta { padding-left: 1em; font-size: 0.92em; }
-    .toplinks { line-height: 1.9; font-size: 0.98em; }
-    summary { font-size: 0.95em; padding: 0.2em 0; }
-    .section-nav {
-      margin: 1.4em 0 1.8em;
-      padding: 0.6em 0;
-      font-size: 0.85em;
-      line-height: 2.1;
+    .paper-block {
+      grid-template-columns: 80px 1fr;
+      gap: 0.9em;
+      padding: 0.3em 0.5em;
     }
-    .section-nav a { margin-right: 1em; }
-    .paper-block { padding: 0.3em 0.7em 0.2em; margin: 0.5em 0; }
-    .paper-block:has(details[open]) { padding: 1em 1em 0.6em; }
-    img.paper-hero { margin: 0 0 0.35em; }
+    .paper-block:has(details[open]) { padding: 0.8em 0.9em 0.5em; }
+    .section-nav {
+      position: static;
+      flex-wrap: wrap;
+      font-size: 0.82em;
+      line-height: 1.9;
+      gap: 0.8em;
+    }
     details > p { font-size: 0.95em; line-height: 1.55; }
+    summary { font-size: 0.95em; padding: 0.2em 0; }
   }
 </style>
 </head>
 <body>
+<div class="layout">
 
+<aside class="sidebar">
 <h1>Juan-Andrés Castro</h1>
 
-<!-- TODO: Replace href="#" links with actual URLs once profiles exist.
-     Google Scholar and SSRN are higher-priority than GitHub for empirical econ.
-     If you have public code, add GitHub back: [ <a href="https://github.com/econjac">GitHub</a> ] -->
-<p class="toplinks">[ <a href="https://www.dropbox.com/s/o3h5t9df8654bny/CV-JAC.pdf?dl=0">CV</a> ] [ <a href="#">Google Scholar</a> ] [ <a href="mailto:j.castrocienfuegos@qmul.ac.uk">Email</a> ]</p>
+<p class="toplinks">[ <a href="https://www.dropbox.com/s/o3h5t9df8654bny/CV-JAC.pdf?dl=0">CV</a> ] [ <a href="#">Google Scholar</a> ]</p>
 
 <img class="profile" src="photo.jpg" alt="Juan-Andrés Castro">
 
-<!-- Interests split into Primary (broad fields) and Secondary (specific topics) per author. -->
-<p><strong>Primary interests:</strong> Development Economics, Organizational Economics, Public Economics</p>
-<p><strong>Secondary interests:</strong> Technology Adoption, Firm Dynamics, Digital Infrastructure</p>
+<p class="sidebar-item"><strong>Economics PhD candidate</strong><br>
+<a href="https://www.qmul.ac.uk/sef/">Queen Mary University of London</a></p>
 
-<p><strong>Affiliation:</strong> Economics PhD candidate @ <a href="https://www.qmul.ac.uk/sef/">Queen Mary University of London</a></p>
+<p class="sidebar-item"><strong>Contact</strong><br>
+<a href="mailto:j.castrocienfuegos@qmul.ac.uk">j.castrocienfuegos@qmul.ac.uk</a></p>
+</aside>
 
-<p class="jmc-meta"><strong>Expected graduation:</strong> June 2027</p>
-<p class="jmc-meta"><strong>Advisors:</strong> <a href="https://www.pedroclsouza.com/">Pedro Souza</a>, <a href="https://sites.google.com/site/lgadenne/home">Lucie Gadenne</a></p>
-<!-- Job market line intentionally omitted for now — add closer to 2026-27 market:
-<p class="jmc-meta"><strong>On the 2026–27 job market</strong></p> -->
-
-<p><strong>Contact:</strong> <a href="mailto:j.castrocienfuegos@qmul.ac.uk">j.castrocienfuegos@qmul.ac.uk</a></p>
+<main class="content">
 
 <nav class="section-nav">
   <a href="#about"><span class="num">01</span>About</a>
@@ -227,19 +276,24 @@
   <a href="#policy-work"><span class="num">06</span>Policy Work</a>
 </nav>
 
-<!-- Bio v7: aligned taxonomy — state/digital infrastructure/markets in S1 mirrors S2 via "each";
-     firms and the public sector are now framed as the OUTCOMES that get shaped. -->
-<p class="bio-text" id="about">I am a development economist specialising in public and organizational economics, with a focus on the state, digital infrastructure, and markets in Chile and sub-Saharan Africa. My work studies how frictions in each shape firms and the public sector. I argue that how the state and markets are organized matters as much as how well they are resourced.</p>
+<h2 id="about"><span class="num">01</span>About</h2>
+
+<p><strong>Expected graduation:</strong> June 2027</p>
+<p><strong>Advisors:</strong> <a href="https://www.pedroclsouza.com/">Pedro Souza</a>, <a href="https://sites.google.com/site/lgadenne/home">Lucie Gadenne</a></p>
+
+<p><strong>Primary interests:</strong> Development Economics, Organizational Economics, Public Economics</p>
+<p><strong>Secondary interests:</strong> Technology Adoption, Firm Dynamics, Digital Infrastructure</p>
+
+<p class="bio-text">I am a development economist specialising in public and organizational economics, with a focus on the state, digital infrastructure, and markets in Chile and sub-Saharan Africa. My work studies how frictions in each shape firms and the public sector. I argue that how the state and markets are organized matters as much as how well they are resourced.</p>
 
 <p class="bio-text">Previously, I was a Research Analyst at the Micro-Finance Research Unit at the <a href="https://www.bcentral.cl/">Central Bank of Chile</a>. I hold a B.Sc. and M.Sc. in Economics from the <a href="https://www.uchile.cl/">University of Chile</a>.</p>
 
-<!-- JM signaling line: matches Marta Morando / Henning convention. -->
 <p><strong>I am on the 2026–2027 academic job market.</strong></p>
 
-<h2 id="job-market-paper">Job Market Paper</h2>
+<h2 id="job-market-paper"><span class="num">02</span>Job Market Paper</h2>
 
 <div class="paper-block">
-<img class="paper-hero" src="figure_jmp.jpg" alt="Job market paper: communication technology and state provision" onerror="this.style.display='none'">
+<img class="paper-thumb" src="figure_jmp.jpg" alt="Job market paper: communication technology and state provision" onerror="this.style.display='none'">
 <p><span class="paper-title">The Missing Input: Communication in Public Service Delivery</span></p>
 <!-- TODO when JMP PDF is ready: uncomment the line below and replace [Month YYYY] with actual date.
 <p class="paper-meta">Latest draft: [Month YYYY] — upload PDF to <code>jmp.pdf</code> and slides to <code>jmp_slides.pdf</code></p>
@@ -251,13 +305,13 @@
 </details>
 </div>
 
-<h2 id="work-in-progress">Work in Progress</h2>
+<h2 id="work-in-progress"><span class="num">03</span>Work in Progress</h2>
 
 <!-- Ordered by maturity per author: Data Centers → Internet Shutdowns. -->
 
 <div class="paper-block">
-<img class="paper-hero" src="figure_data_centers.jpg" alt="Data centers and internet latency across Africa" onerror="this.style.display='none'">
-<p><span class="paper-title">Data Centers</span> with <a href="https://www.jonashjort.com/">Jonas Hjort</a> and Ana Cepeda</p>
+<img class="paper-thumb" src="figure_data_centers.jpg" alt="Data centers and internet latency across Africa" onerror="this.style.display='none'">
+<p><span class="paper-title">Data Centers</span> <span class="paper-authors">with <a href="https://www.jonashjort.com/">Jonas Hjort</a> and Ana Cepeda</span></p>
 <details>
   <summary>[ Abstract ]</summary>
   <p>We study how data center expansion shapes African economies, exploiting the staggered opening of 85 data centers between 2015 and 2024. Using a panel of 8.67 million RIPE Atlas traceroutes, we first show that DC openings cut route-level Internet latency by 28–38% along eligible routes, operating through faster individual hops rather than route reorganization. Ongoing work develops additional identification strategies — including cable-landing instruments and operator × IXP shift-share designs — and extends the analysis to downstream outcomes in labor markets and firm productivity.</p>
@@ -265,19 +319,19 @@
 </div>
 
 <div class="paper-block">
-<img class="paper-hero" src="figure_shutdowns.jpg" alt="Internet shutdowns and heterogeneous economic impact of connectivity across Africa" onerror="this.style.display='none'">
-<p><span class="paper-title">Internet Shutdowns and the Heterogeneous Economic Impact of Connectivity</span> with <a href="https://www.jonashjort.com/">Jonas Hjort</a> and Emilio Guaman</p>
+<img class="paper-thumb" src="figure_shutdowns.jpg" alt="Internet shutdowns and heterogeneous economic impact of connectivity across Africa" onerror="this.style.display='none'">
+<p><span class="paper-title">Internet Shutdowns and the Heterogeneous Economic Impact of Connectivity</span> <span class="paper-authors">with <a href="https://www.jonashjort.com/">Jonas Hjort</a> and Emilio Guaman</span></p>
 <details>
   <summary>[ Abstract ]</summary>
   <p>We study how Internet Service Providers (ISPs) and political regimes shape the economic impact of connectivity in Africa, combining heterogeneous causal-forest estimates of connectivity's employment effect (extending Hjort &amp; Poulsen 2019) with an AKM-style two-way fixed-effects decomposition of mobile coverage quality. The AKM design exploits ~9,400 events of operators entering new grid cells across 95 African ISPs between 2010 and 2023 (50 × 50 km grids, Collin-Bartholomew 2G coverage). Preliminary findings document large heterogeneity across providers — some yielding null or negative employment effects, others raising employment probabilities by up to 29 percentage points — and a robust sorting pattern: higher-quality ISPs concentrate in more democratic regimes, while state ownership and Internet-shutdown capacity track lower-achiever providers and dampen the connectivity-to-employment transmission.</p>
 </details>
 </div>
 
-<h2 id="working-papers">Working Papers</h2>
+<h2 id="working-papers"><span class="num">04</span>Working Papers</h2>
 
 <div class="paper-block">
-<img class="paper-hero" src="dist-top20.png" alt="Market power, ownership concentration, and income inequality in Chile" onerror="this.style.display='none'">
-<p><span class="paper-title">Market power, ownership concentration and income inequality</span> with Alejandro Micco, Andrea Repetto, and Patricio Toro <span class="paper-meta">2026</span></p>
+<img class="paper-thumb" src="dist-top20.png" alt="Market power, ownership concentration, and income inequality in Chile" onerror="this.style.display='none'">
+<p><span class="paper-title">Market power, ownership concentration and income inequality</span> <span class="paper-authors">with Alejandro Micco, Andrea Repetto, and Patricio Toro</span> <span class="paper-meta">2026</span></p>
 <details>
   <summary>[ Abstract | <a href="market_power.pdf">Paper</a> ]</summary>
   <p>We quantify the distributional effects of market power by decomposing capital income into competitive returns and market-power rents and assigning these components to ultimate individual owners. Using matched firm-level and taxpayer-level administrative data for Chile from 2008 to 2016, we estimate firm-level markups and trace monopoly rents through ownership networks. Capital income is highly concentrated, but competitive returns are more skewed than market-power rents because very large firms exhibit lower markups. As a result, market-power rents account for a smaller share of income at the very top of the distribution. Inequality decompositions imply that reductions in market power lower inequality despite increases in competitive returns, as the associated rise in the labor share dominates. Our results provide new empirical evidence on how ownership structure mediates the link between market power and inequality.</p>
@@ -285,8 +339,8 @@
 </div>
 
 <div class="paper-block">
-<img class="paper-hero" src="subway.png" alt="Financial constraints and firm response to sales disruption in Chile" onerror="this.style.display='none'">
-<p><span class="paper-title"><a href="https://www.bcentral.cl/documents/33528/133326/DTBC_995.pdf">Financial Constraints and Firm Adjustments During a Sales Disruption</a></span> with Enzo Cerletti <span class="paper-meta">2023</span></p>
+<img class="paper-thumb" src="subway.png" alt="Financial constraints and firm response to sales disruption in Chile" onerror="this.style.display='none'">
+<p><span class="paper-title">Financial Constraints and Firm Adjustments During a Sales Disruption</span> <span class="paper-authors">with Enzo Cerletti</span> <span class="paper-meta">2023</span></p>
 <details>
   <summary>[ Abstract | <a href="https://www.bcentral.cl/documents/33528/133326/DTBC_995.pdf">Paper</a> ]</summary>
   <p>We address two main questions: (i) how do firms respond to an unanticipated shock to their cash flows, and (ii) what is the role of financial constraints in mediating such response? To answer these questions, we study the behavior of Chilean firms during the 2019 social unrest, which caused a series of disruptions to the firms' activity over several months. Exploiting quasi-experimental variation in the exposure of firms to these incidents, we find that more exposed firms experience larger declines in sales, larger employment losses, and are more likely to fall behind in their financial obligations than less affected firms. Moreover, these responses are significantly stronger for those firms more likely to be financially constrained. A back-of-the-envelope calculation suggests that constrained firms translate almost half the decline in sales into lower demand for labor and intermediate inputs, more than double the transmission of unconstrained firms.</p>
@@ -295,16 +349,15 @@
 
 <p class="subsection">Pre-PhD</p>
 
-<div class="paper-block">
-<img class="paper-hero" src="figure_schools.jpg" alt="Telling schools apart: parental choice and school quality in Chile" onerror="this.style.display='none'">
-<p><span class="paper-title"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3422914">Telling schools apart: the role of preferences, constraints, and the ability to differentiate between schools in parents' choices</a></span> with Diego Amador and Nicolás Grau <span class="paper-meta">2020</span></p>
+<div class="paper-block no-thumb">
+<p><span class="paper-title">Telling schools apart: the role of preferences, constraints, and the ability to differentiate between schools in parents' choices</span> <span class="paper-authors">with Diego Amador and Nicolás Grau</span> <span class="paper-meta">2020</span></p>
 <details>
   <summary>[ Abstract | <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3422914">Paper</a> ]</summary>
   <p>Limitations in the ability of parents to compare schools have important implications for market-oriented educational systems, which rely on parents' choices to improve quality through competition. To empirically study these limitations, we develop and estimate a static model of elementary school choice that distinguishes between preferences for academic quality, the ability to differentiate between schools of different quality, and constraints in terms of the schools available to different households. Because school quality might be endogenous to parents' choices, we identify the key parameters related to preferences for quality using exogenous variation in schools' funding introduced by a policy that substantially increased the voucher amount for each enrolled socioeconomically vulnerable student. We estimate the model using a combination of administrative and survey data from Chile, which includes rich information on how parents compare the academic quality of schools. Using counterfactual simulations, we find the interaction between limitations to tell schools apart and differences in preferences across households plays an important role in decreasing the quality of schools attended by Chilean children, especially for children with less educated parents.</p>
 </details>
 </div>
 
-<h2 id="teaching">Teaching</h2>
+<h2 id="teaching"><span class="num">05</span>Teaching</h2>
 
 <p><strong>Teaching Assistant</strong>, Queen Mary University of London (2023–2026)<br>
 <span class="paper-meta">Macroeconomics I · Quantitative Methods using R (×3) · Health Economics</span></p>
@@ -315,7 +368,7 @@
 <p><strong>Teaching Assistant</strong>, University of Chile (2013–2017)<br>
 <span class="paper-meta">Industrial Organization · Econometrics I &amp; II · Applied Econometrics</span></p>
 
-<h2 id="policy-work">Policy Work</h2>
+<h2 id="policy-work"><span class="num">06</span>Policy Work</h2>
 
 <p>2019: <em><a href="https://www.bcentral.cl/documents/33528/133278/IEF2_2019-Minutas-citadas-IEF-segundo-semestre-2019.pdf">Predictive models of default and recovery of corporate loans</a></em>, Central Bank of Chile, with E. Cerletti, J. Fernández, &amp; A. Vásquez.</p>
 <p>2019: "<a href="https://www.bcentral.cl/documents/33528/133278/IEF2_2019.pdf">Economic groups as a unit of analysis for financial stability</a>" — Box IV.2, Financial Stability Report S2-2019, Central Bank of Chile, with Patricio Toro.</p>
@@ -351,5 +404,10 @@
 
      ===================================================================== -->
 
+
+</main>
+
+</div>
 </body>
+
 </html>
